@@ -1,0 +1,326 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+  SERVICE
+}
+
+enum UserSegment {
+  NEW
+  ACTIVE
+  HIGH_VALUE
+  AT_RISK
+  DORMANT
+  DROPOFF
+}
+
+enum EventType {
+  PAGE_VIEW
+  CLICK
+  SCROLL
+  TIME_ON_PAGE
+  NAVIGATION
+  FORM_SUBMIT
+  PURCHASE
+  SIGNUP
+  LOGIN
+  CUSTOM
+}
+
+enum RecommendationType {
+  CONTENT
+  PRODUCT
+  UI_CHANGE
+  CTA
+  PERSONALIZED_BLOCK
+}
+
+enum DecisionAction {
+  SHOW_CTA
+  MODIFY_LAYOUT
+  SHOW_POPUP
+  RECOMMEND_PRODUCT
+  RECOMMEND_CONTENT
+  SEGMENT_USER
+  UPDATE_SCORE
+}
+
+model Organization {
+  id            String   @id @default(uuid())
+  name          String
+  slug          String   @unique
+  logo          String?
+  apiKey        String   @unique
+  plan          String   @default("free")
+  settings      Json     @default("{}")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  users         User[]
+  websites      Website[]
+  events        Event[]
+  profiles      UserProfile[]
+  segments      Segment[]
+  rules         PersonalizationRule[]
+  abTests       ABTest[]
+  analytics     DailyAnalytics[]
+
+  @@map("organizations")
+}
+
+model User {
+  id             String   @id @default(uuid())
+  organizationId String
+  email          String
+  password       String?
+  name           String?
+  avatar         String?
+  role           Role     @default(USER)
+  lastLoginAt    DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, email])
+  @@map("users")
+}
+
+model Website {
+  id             String   @id @default(uuid())
+  organizationId String
+  name           String
+  domain         String
+  isEnabled      Boolean  @default(true)
+  settings       Json     @default("{}")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  events          Event[]
+  sessions       Session[]
+  profiles       UserProfile[]
+  rules          PersonalizationRule[]
+
+  @@unique([organizationId, domain])
+  @@map("websites")
+}
+
+model Session {
+  id            String   @id @default(uuid())
+  websiteId     String
+  userId        String?
+  anonymousId   String?
+  deviceInfo    Json?
+  location      Json?
+  referrer      String?
+  utmParams     Json?
+  startedAt     DateTime @default(now())
+  endedAt       DateTime?
+  pageCount     Int      @default(0)
+  duration      Int      @default(0)
+
+  website       Website  @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  user          User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  events        Event[]
+
+  @@map("sessions")
+}
+
+model Event {
+  id          String    @id @default(uuid())
+  sessionId   String
+  websiteId   String
+  userId      String?
+  anonymousId String?
+  type        EventType
+  name        String?
+  data        Json      @default("{}")
+  url         String?
+  element     String?
+  timestamp   DateTime  @default(now())
+
+  session     Session   @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  website     Website   @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  @@index([websiteId, timestamp])
+  @@index([sessionId])
+  @@map("events")
+}
+
+model UserProfile {
+  id             String        @id @default(uuid())
+  websiteId      String
+  organizationId String
+  anonymousId    String?        @unique
+  userId         String?
+  
+  interests      String[]      @default([])
+  behaviorPatterns Json       @default("[]")
+  
+  engagementScore Float       @default(0)
+  visitCount      Int          @default(0)
+  totalDuration   Int          @default(0)
+  lastActiveAt    DateTime     @default(now())
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  website         Website      @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  events          Event[]
+  
+  embeddings      ProfileEmbedding[]
+
+  @@map("user_profiles")
+}
+
+model ProfileEmbedding {
+  id           String     @id @default(uuid())
+  profileId    String
+  vector       Unsupported("vector(1536)")
+  model        String     @default("text-embedding-ada-002")
+  createdAt    DateTime   @default(now())
+
+  profile      UserProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@map("profile_embeddings")
+}
+
+model Segment {
+  id             String        @id @default(uuid())
+  organizationId String
+  name           String
+  description    String?
+  criteria       Json
+  color          String        @default("#6366f1")
+  userCount      Int           @default(0)
+  isAutoGenerated Boolean       @default(false)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, name])
+  @@map("segments")
+}
+
+model PersonalizationRule {
+  id            String            @id @default(uuid())
+  organizationId String
+  websiteId     String?
+  name          String
+  description   String?
+  
+  triggerEvent  String?
+  conditions    Json              @default("[]")
+  action        DecisionAction
+  actionData    Json              @default("{}")
+  
+  isActive      Boolean           @default(true)
+  priority      Int               @default(0)
+  impressions   Int               @default(0)
+  conversions   Int               @default(0)
+  
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  organization  Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  website       Website?          @relation(fields: [websiteId], references: [id], onDelete: SetNull)
+
+  @@map("personalization_rules")
+}
+
+model ABTest {
+  id             String   @id @default(uuid())
+  organizationId String
+  name           String
+  description    String?
+  
+  variants       Json     @default("[]")
+  traffic        Int      @default(100)
+  
+  status         String   @default("draft")
+  startedAt      DateTime?
+  endedAt        DateTime?
+  
+  metrics        Json     @default("{}")
+  
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("ab_tests")
+}
+
+model Recommendation {
+  id             String             @id @default(uuid())
+  profileId      String
+  type           RecommendationType
+  itemId         String
+  itemData       Json               @default("{}")
+  score          Float              @default(0)
+  reason         String?
+  isClicked      Boolean            @default(false)
+  isConverted    Boolean            @default(false)
+  createdAt      DateTime           @default(now())
+
+  @@map("recommendations")
+}
+
+model DailyAnalytics {
+  id             String   @id @default(uuid())
+  organizationId String
+  date           DateTime @db.Date
+  
+  visitors       Int      @default(0)
+  pageViews      Int      @default(0)
+  avgDuration    Float    @default(0)
+  bounceRate     Float    @default(0)
+  
+  topPages       Json     @default("[]")
+  topEvents      Json     @default("[]")
+  
+  segments       Json     @default("{}")
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, date])
+  @@index([date])
+  @@map("daily_analytics")
+}
+
+model APIKey {
+  id             String   @id @default(uuid())
+  organizationId String
+  name           String
+  key            String   @unique
+  permissions    String[] @default(["read"])
+  lastUsedAt     DateTime?
+  expiresAt      DateTime?
+  createdAt      DateTime @default(now())
+
+  @@unique([organizationId, name])
+  @@map("api_keys")
+}
+
+model Webhook {
+  id             String   @id @default(uuid())
+  organizationId String
+  url            String
+  events         String[] @default([])
+  secret         String?
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("webhooks")
+}
