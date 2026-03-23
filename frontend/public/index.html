@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PERSONAX — AI Personalization Engine</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .font-display { font-family: 'Space Grotesk', sans-serif; }
+    .gradient-mesh {
+      background: 
+        radial-gradient(at 40% 20%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+        radial-gradient(at 80% 0%, rgba(6, 182, 212, 0.1) 0px, transparent 50%),
+        radial-gradient(at 0% 50%, rgba(244, 63, 94, 0.1) 0px, transparent 50%),
+        radial-gradient(at 80% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
+    }
+    .glow { box-shadow: 0 0 40px -10px rgba(139, 92, 246, 0.3); }
+    .animate-fade { animation: fadeIn 0.5s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="bg-[#0a0a0f] text-white min-h-screen">
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0f]/80 backdrop-blur-lg border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-rose-500 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </div>
+        <span class="font-display font-semibold text-xl">PERSONAX</span>
+      </div>
+      <a href="https://github.com/logeshkannan19/PERSONAX" target="_blank" class="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-sm font-medium transition">
+        View on GitHub →
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="min-h-screen flex items-center justify-center gradient-mesh pt-20">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-8 animate-fade">
+        <span class="text-purple-400 text-sm">AI Personalization Engine</span>
+      </div>
+      
+      <h1 class="text-5xl md:text-7xl font-display font-bold mb-6 leading-tight animate-fade">
+        Personalization that <span class="bg-gradient-to-r from-purple-400 via-rose-400 to-cyan-400 bg-clip-text text-transparent">thinks</span>
+      </h1>
+      
+      <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-10 animate-fade">
+        Turn anonymous visitors into engaged users. Track behavior, learn preferences, predict intent — and adapt your UI in real-time.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade">
+        <a href="#demo" class="px-8 py-4 bg-gradient-to-r from-purple-600 to-rose-600 rounded-xl font-semibold hover:opacity-90 transition glow">
+          Try Live Demo
+        </a>
+        <a href="https://github.com/logeshkannan19/PERSONAX" target="_blank" class="px-8 py-4 bg-white/10 rounded-xl font-semibold hover:bg-white/20 transition">
+          Get Source Code
+        </a>
+      </div>
+
+      <!-- Code Preview -->
+      <div class="mt-16 max-w-lg mx-auto animate-fade">
+        <div class="bg-[#1a1a2e] rounded-xl border border-white/10 p-6 text-left">
+          <div class="flex gap-2 mb-4">
+            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+          </div>
+          <pre class="text-sm text-gray-400 font-mono"><code><span style="color: #8b5cf6">&lt;script&gt;</span>
+  personax.init({
+    apiKey: <span style="color: #10b981">'pk_xxx'</span>,
+    track: [<span style="color: #10b981">'clicks'</span>, <span style="color: #10b981">'scroll'</span>]
+  });
+<span style="color: #8b5cf6">&lt;/script&gt;</span></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Background orbs -->
+    <div class="absolute top-1/4 left-10 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/4 right-10 w-96 h-96 bg-rose-500/20 rounded-full blur-3xl"></div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-24 bg-[#0d0d12]">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-4xl font-display font-bold text-center mb-16">Core Features</h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Feature 1 -->
+        <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/30 transition">
+          <div class="w-12 h-12 rounded-lg bg-purple-500/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">User Behavior Tracking</h3>
+          <p class="text-gray-400">Track clicks, scrolls, time spent, navigation paths, and custom events in real-time.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/30 transition">
+          <div class="w-12 h-12 rounded-lg bg-rose-500/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">User Profile Engine</h3>
+          <p class="text-gray-400">Build dynamic profiles with interests, behavior patterns, and engagement scores.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/30 transition">
+          <div class="w-12 h-12 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">AI Recommendations</h3>
+          <p class="text-gray-400">Content & product recommendations using collaborative filtering + OpenAI.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/30 transition">
+          <div class="w-12 h-12 rounded-lg bg-emerald-500/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Real-Time Analytics</h3>
+          <p class="text-gray-400">Dashboard with visitor stats, segment distribution, and conversion tracking.</p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/30 transition">
+          <div class="w-12 h-12 rounded-lg bg-amber-500/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Auto Segmentation</h3>
+          <p class="text-gray-400">AI-powered clustering: New, Active, High-Value, At-Risk users.</p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/30 transition">
+          <div class="w-12 h-12 rounded-lg bg-purple-500/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Easy SDK Integration</h3>
+          <p class="text-gray-400">Lightweight JavaScript snippet. Works with any website in minutes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Dashboard -->
+  <section id="demo" class="py-24">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-display font-bold mb-4">Live Demo Dashboard</h2>
+        <p class="text-gray-400">Preview the analytics and segmentation features</p>
+      </div>
+
+      <div class="bg-[#0d0d12] rounded-2xl border border-white/10 overflow-hidden">
+        <!-- Dashboard Header -->
+        <div class="p-6 border-b border-white/10 flex items-center justify-between">
+          <div>
+            <h3 class="text-xl font-semibold">Dashboard Overview</h3>
+            <p class="text-gray-400 text-sm">Demo Organization</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-sm">Live</span>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-6">
+          <div class="p-4 rounded-xl bg-white/5">
+            <div class="text-gray-400 text-sm mb-1">Total Visitors</div>
+            <div class="text-3xl font-bold">12,847</div>
+            <div class="text-emerald-400 text-sm">+12.5%</div>
+          </div>
+          <div class="p-4 rounded-xl bg-white/5">
+            <div class="text-gray-400 text-sm mb-1">Active Now</div>
+            <div class="text-3xl font-bold">1,234</div>
+            <div class="text-emerald-400 text-sm">+8.2%</div>
+          </div>
+          <div class="p-4 rounded-xl bg-white/5">
+            <div class="text-gray-400 text-sm mb-1">Avg. Engagement</div>
+            <div class="text-3xl font-bold">67%</div>
+            <div class="text-emerald-400 text-sm">+5.3%</div>
+          </div>
+          <div class="p-4 rounded-xl bg-white/5">
+            <div class="text-gray-400 text-sm mb-1">Conversions</div>
+            <div class="text-3xl font-bold">892</div>
+            <div class="text-rose-400 text-sm">-2.1%</div>
+          </div>
+        </div>
+
+        <!-- Segments -->
+        <div class="p-6 border-t border-white/10">
+          <h4 class="font-semibold mb-4">User Segments</h4>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>New Users</span>
+                <span class="text-gray-400">4,521 (35%)</span>
+              </div>
+              <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-purple-500 rounded-full" style="width: 35%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>Active</span>
+                <span class="text-gray-400">6,234 (49%)</span>
+              </div>
+              <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-emerald-500 rounded-full" style="width: 49%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>High Value</span>
+                <span class="text-gray-400">1,456 (11%)</span>
+              </div>
+              <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-amber-500 rounded-full" style="width: 11%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>At Risk</span>
+                <span class="text-gray-400">636 (5%)</span>
+              </div>
+              <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-rose-500 rounded-full" style="width: 5%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack -->
+  <section class="py-24 bg-[#0d0d12]">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-display font-bold mb-8">Built With</h2>
+      <div class="flex flex-wrap items-center justify-center gap-8">
+        <div class="flex items-center gap-2 text-gray-400">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          <span>Next.js</span>
+        </div>
+        <div class="flex items-center gap-2 text-gray-400">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+          <span>Node.js</span>
+        </div>
+        <div class="flex items-center gap-2 text-gray-400">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <span>PostgreSQL</span>
+        </div>
+        <div class="flex items-center gap-2 text-gray-400">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+          <span>Redis</span>
+        </div>
+        <div class="flex items-center gap-2 text-gray-400">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          <span>OpenAI</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <div class="flex items-center justify-center gap-2 mb-4">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-rose-500 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </div>
+        <span class="font-display font-semibold">PERSONAX</span>
+      </div>
+      <p class="text-gray-400 mb-4">AI-Powered Personalization Engine</p>
+      <a href="https://github.com/logeshkannan19/PERSONAX" target="_blank" class="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+  </footer>
+</body>
+</html>
