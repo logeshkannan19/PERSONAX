@@ -3,6 +3,8 @@
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+**🚀 Live Demo:** https://personax-demo.vercel.app
+
 PERSONAX is an AI-powered personalization engine that helps businesses dynamically customize user experiences across websites, apps, and digital products.
 
 ## 🎯 Features
